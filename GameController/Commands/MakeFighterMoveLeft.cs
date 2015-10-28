@@ -5,10 +5,12 @@ namespace GameController.Commands
     public class MakeFighterMoveLeft : IGameCommand
     {
         private Fighter _fighter;
+        private int _previousLocation;
 
         public MakeFighterMoveLeft(Fighter fighter)
         {
             _fighter = fighter;
+            _previousLocation = _fighter.Location;
         }
 
         public void Execute()
@@ -19,7 +21,7 @@ namespace GameController.Commands
         public void Undo()
         {
             _fighter.Revive(_fighter._moveEnergyDrain);
-            _fighter.Location++;
+            _fighter.Location = _previousLocation;
         }
 
         public void Redo()
